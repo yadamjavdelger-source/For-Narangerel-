@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Narangerel 🍫💖</title>
+<style>
+  body{margin:0; font-family:sans-serif; background:#fff8f0; display:flex; justify-content:center; align-items:center; min-height:100vh; flex-direction:column;}
+  .card{background:#fff; border-radius:20px; padding:20px; text-align:center; max-width:360px; width:90%; box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+  h1{margin-bottom:10px;}
+  .btn{padding:12px 20px; margin:6px; border:none; border-radius:14px; font-size:16px; font-weight:600; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+  .btn-yes{background:linear-gradient(#ffb3d9,#ff8fc2); color:#3d0226;}
+  .btn-no{background:linear-gradient(#fff,#fffefe); color:#c32b6b; border:2px solid #ffd4e8; position:absolute;}
+  .btn-good{background:linear-gradient(#b7f0d7,#7fe6b8); color:#064927;}
+  .btn-bad{background:linear-gradient(#ffdede,#ffb6c7); color:#5a0f2f;}
+  .screen{display:none;}
+  .screen.active{display:block;}
+  img{max-width:70%; border-radius:14px; margin-top:12px;}
+  .floating{position:absolute;}
+</style>
+</head>
+<body>
+<div class="card" id="screen-0">
+  <h1>Are you Narangerel?</h1>
+  <button class="btn btn-yes" id="yes-start">Yes</button>
+  <button class="btn btn-no" id="no-start">No</button>
+</div>
+
+<div class="card screen" id="screen-day">
+  <h1>How was your day?</h1>
+  <button class="btn btn-good" id="good-day">Good 😊</button>
+  <button class="btn btn-bad" id="bad-day">Bad 😢</button>
+</div>
+
+<div class="card screen" id="screen-choco">
+  <h1>Here’s some chocolate from me 🍫</h1>
+  <img src="https://i.postimg.cc/FK7K4M5r/chocolate.png" alt="Chocolate">
+  <button class="btn btn-yes" id="to-next-from-choco">Next</button>
+</div>
+
+<div class="card screen" id="screen-like">
+  <h1>Do you like me?</h1>
+  <div style="position:relative; height:120px;">
+    <div class="floating" id="no-like">
+      <button class="btn btn-no">No</button>
+    </div>
+    <div style="position:relative; z-index:2;">
+      <button class="btn btn-yes" id="yes-like">Yes 💖</button>
+    </div>
+  </div>
+</div>
+
+<div class="card screen" id="screen-pepero">
+  <h1>Here’s a Pepero for you 💖</h1>
+  <img src="https://i.postimg.cc/XqJP5JkP/pink-pepero.png" alt="Pepero">
+  <p>You deserve all the sweetness in the world.<br><strong>— Delger 🍫💖</strong></p>
+</div>
+
+<script>
+const show = id => document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')) || document.getElementById(id).classList.add('active');
+document.getElementById('yes-start').onclick = ()=> {document.getElementById('screen-0').style.display='none'; show('screen-day');};
+document.getElementById('no-start').onclick = ()=> alert("This is not for you.");
+document.getElementById('good-day').onclick = ()=> show('screen-like');
+document.getElementById('bad-day').onclick = ()=> show('screen-choco');
+document.getElementById('to-next-from-choco').onclick = ()=> show('screen-like');
+document.getElementById('yes-like').onclick = ()=> show('screen-pepero');
+
+// moving "No" button
+const noBtn = document.querySelector('#no-like .btn-no');
+const parent = document.querySelector('#no-like');
+function moveNo(){
+  const parentRect = parent.getBoundingClientRect();
+  const x = Math.random()*(parentRect.width-80);
+  const y = Math.random()*(parentRect.height-50);
+  parent.style.left = x+'px';
+  parent.style.top = y+'px';
+}
+['mouseenter','touchstart','click'].forEach(ev => noBtn.addEventListener(ev,e=>{e.preventDefault();moveNo();}));
+</script>
+</body>
+</html>
