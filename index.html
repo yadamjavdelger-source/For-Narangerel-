@@ -15,8 +15,14 @@
   .btn-bad{background:linear-gradient(#ffdede,#ffb6c7); color:#5a0f2f;}
   .screen{display:none;}
   .screen.active{display:block;}
-  img{max-width:70%; border-radius:14px; margin-top:12px;}
+  img{max-width:70%; border-radius:14px; margin-top:12px; opacity:0; transform:translateY(-20px); animation:popIn 0.5s forwards;}
   .floating{position:absolute;}
+
+  @keyframes popIn{
+    0%{opacity:0; transform:translateY(-20px) scale(0.95);}
+    60%{opacity:1; transform:translateY(5px) scale(1.05);}
+    100%{opacity:1; transform:translateY(0) scale(1);}
+  }
 </style>
 </head>
 <body>
@@ -65,7 +71,6 @@ document.getElementById('bad-day').onclick = ()=> show('screen-choco');
 document.getElementById('to-next-from-choco').onclick = ()=> show('screen-like');
 document.getElementById('yes-like').onclick = ()=> show('screen-pepero');
 
-// moving "No" button
 const noBtn = document.querySelector('#no-like .btn-no');
 const parent = document.querySelector('#no-like');
 function moveNo(){
